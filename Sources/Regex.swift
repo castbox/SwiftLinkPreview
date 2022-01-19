@@ -106,10 +106,11 @@ class Regex {
     }
 
     // Return tag pattern
-    static func tagPattern(_ tag: String) -> String {
+    static func tagPattern(_ tag: String) -> (reg: String, groupsCount: Int) {
 
-        return "<" + tag + "(.*?)>(.*?)</" + tag + ">"
-
+        let reg = "(<\(tag)>)|(<\(tag)\\s+[^>]+?>)(.*?)</\(tag)>"
+        let groups = 3
+        return (reg, groups)
     }
 
 }

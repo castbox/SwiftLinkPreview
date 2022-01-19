@@ -770,9 +770,10 @@ extension SwiftLinkPreview {
     // Get tag content
     private func getTagContent(_ tag: String, content: String, minimum: Int) -> String {
 
-        let pattern = Regex.tagPattern(tag)
+        let t = Regex.tagPattern(tag)
+        let pattern = t.reg
 
-        let index = 2
+        let index = t.groupsCount
         let rawMatches = Regex.pregMatchAll(content, regex: pattern, index: index)
 
         let matches = rawMatches.filter({ $0.extendedTrim.tagsStripped.count >= minimum })
@@ -780,7 +781,7 @@ extension SwiftLinkPreview {
 
         if result.isEmpty {
 
-            if let match = Regex.pregMatchFirst(content, regex: pattern, index: 2) {
+            if let match = Regex.pregMatchFirst(content, regex: pattern, index: index) {
 
                 result = match.extendedTrim.tagsStripped
 
